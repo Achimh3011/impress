@@ -157,6 +157,8 @@ def move_private_folders(app, e):
             if item == '_static':
                 for dirname in glob.glob(join(item, '*', '.git')):
                     shutil.rmtree(dirname)
+            if item == '_images':
+                continue
             shutil.move(join(item), join(item[1:]))
 
 
