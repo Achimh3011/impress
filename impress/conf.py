@@ -18,3 +18,7 @@ if 'html_static_path' in os.environ:
 templates_path = []
 if 'templates_path' in os.environ:
     templates_path = [os.environ['templates_path']]
+if 'PLANTUML' in os.environ:
+    extensions.append('sphinxcontrib.plantuml')
+    plantuml = 'java -jar %(PLANTUML)s'%os.environ
+
