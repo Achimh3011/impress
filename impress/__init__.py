@@ -6,7 +6,7 @@ import os
 
 def main():
     parser = OptionParser()
-    parser.usage = '''%prog -i filename.rst [-o outputdir]'''
+    parser.usage = '''%prog [-f] -i filename.rst [-o outputdir]'''
     parser.add_option('-i', '--input', metavar="FILENAME",
                       dest='input', default='index.rst',
                       help="Input file. Default to: index.rst")
@@ -16,6 +16,9 @@ def main():
     parser.add_option('-l', '--loop', metavar='DELAY',
                       dest='loop', default=None,
                       help="Loop over the command each DELAY second")
+    parser.add_option('-f', '--force', action="store_true",
+                      dest='force', default=False,
+                      help="Force rereading all files.")
     options, args = parser.parse_args()
 
     options.output = os.path.abspath(options.output)
@@ -45,6 +48,8 @@ def main():
             '-c', os.path.dirname(__file__),
             '-d', os.path.join(options.output, 'doctrees'),
           ]
+    if options.force:
+        sys.argv.append('-E')
     sys.argv.extend([
         '.',
         options.output] + args)
